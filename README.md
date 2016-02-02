@@ -1,3 +1,15 @@
+# Angular circle countdown
+Circle countdown for angular
+
+## See demo
+[Demo](http://shakogegia.github.io/angular-circle-countdown/)
+
+## Install 
+with bower
+```
+$ bower install angular-circle-countdown --save
+```
+
 ## Include
 include files
 ```
