@@ -3,16 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Demo</title>
-
+	
+	<link rel="stylesheet" href="../src/angular_circle_countdown.css">
+	
 	<script src="../bower_components/angular/angular.min.js"></script>
 	<script src="../bower_components/jquery/jquery.min.js"></script>
 	<script src="../bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-	<script src="../demo/angular-knob.js"></script>
 	<script src="../src/angular_circle_countdown.js"></script>
 
 	<script src="app.js"></script>
 </head>
-<body ng-controller="AppController">
+<body ng-controller="AppController" style="background: #3E3B4A">
 
     <!-- Two-way-binding: <input ng-model="data"/>
     <knob knob-data="data" konb-options="options"></knob>
@@ -24,8 +25,11 @@
         <knob knob-data="data.value" knob-options="data.options"></knob>
     </div>
  -->
-	<countdown autostart="true" now="0" end="4" finish-callback="finished()">
-	</countdown>
+	
+	<div style="width:280px;">
+		<countdown autostart="true" now="0" end="100" finish-callback="finished()">
+		</countdown>
+	</div>
 
 </body>
 </html>

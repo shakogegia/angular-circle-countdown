@@ -30,9 +30,10 @@ angular.module('circle.countdown', [])
                     options: {
                         max: 60,
                         width: 75,
-                        fgColor: "#000",
+                        thickness: 0.03,
+                        // bgColor: "rgba(0,0,0,0.05)",
+                        fgColor: "#2980b9",
                         skin: "tron",
-                        thickness: 0.1,
                         readOnly: true,
                         displayPrevious: true
                     }
@@ -42,9 +43,10 @@ angular.module('circle.countdown', [])
                     options: {
                         max: 60,
                         width: 75,
-                        fgColor: "#ff3300",
                         skin: "tron",
-                        thickness: 0.1,
+                        thickness: 0.03,
+                        // bgColor: "rgba(0,0,0,0.05)",
+                        fgColor: "#8e44ad",
                         readOnly: true,
                         displayPrevious: true
                     }
@@ -54,9 +56,10 @@ angular.module('circle.countdown', [])
                     options: {
                         max: 60,
                         width: 75,
-                        fgColor: "#ffec03",
+                        thickness: 0.03,
+                        // bgColor: "rgba(0,0,0,0.05)",
+                        fgColor: "#f39c12",
                         skin: "tron",
-                        thickness: 0.1,
                         readOnly: true,
                         displayPrevious: true
                     }

@@ -9,7 +9,7 @@ angular.module('ui.knob', []).directive('knob', ['$timeout', function($timeout) 
             knobData: '=',
             knobOptions: '&'
         },
-        link: function($scope, iElm, iAttrs, controller) {
+        link: function($scope, $element) {
             var knobInit = $scope.knobOptions() || {};
 
             knobInit.release = function(newValue) {
@@ -21,11 +21,11 @@ angular.module('ui.knob', []).directive('knob', ['$timeout', function($timeout) 
 
             $scope.$watch('knobData', function(newValue, oldValue) {
                 if (newValue != oldValue) {
-                    $(iElm).val(newValue).change();
+                    $($element).val(newValue).change();
                 }
             });
 
-            $(iElm).val($scope.knobData).knob(knobInit);
+            $($element).val($scope.knobData).knob(knobInit);
         }
     };
 }]);
