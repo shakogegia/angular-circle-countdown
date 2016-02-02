@@ -14,19 +14,18 @@
 </head>
 <body ng-controller="AppController">
 
-    Two-way-binding: <input ng-model="data"/>
+    <!-- Two-way-binding: <input ng-model="data"/>
     <knob knob-data="data" konb-options="options"></knob>
-        
+
     <hr>
 
     <div ng-repeat="data in knobData | filter:formatOptions" class="knob-example">
         <pre class="data">{{ data.formattedOptions }}</pre>
         <knob knob-data="data.value" knob-options="data.options"></knob>
     </div>
-
-	<!-- <countdown autostart="true" now="0" end="5" finish-callback="finished()" >
-		
-	</countdown> -->
+ -->
+	<countdown autostart="true" now="0" end="4" finish-callback="finished()">
+	</countdown>
 
 </body>
 </html>

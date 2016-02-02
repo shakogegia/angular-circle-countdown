@@ -1,32 +1,67 @@
 angular.module('circle.countdown', [])
 
 .directive('countdown',  ['$timeout', '$interval', function($timeout, $interval) {
-    // Runs during compile
     return {
-        // name: '',
-        // priority: 1,
-        // terminal: true,
-        // scope: {}, // {} = isolate, true = child, false/undefined = no change
         scope: {
             colors: '=?colors',
             autostart: '=?autostart',
-            hours: '=?hours',
-            minutes: '=?minutes',
-            seconds: '=?seconds',
-            end: '=?end',
-            now: '=?now',
+            end: '=end',
+            now: '=now',
             finishCallback: '&finishCallback',
-        }, // {} = isolate, true = child, false/undefined = no change
-        // controller: function($scope, $element, $attrs, $transclude) {},
-        // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-        restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        template: '<knob max="60" knob-data="data" konb-options="options"></knob>',
-        // templateUrl: '',
-        // replace: true,
-        // transclude: true,
-        // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+        },
+        restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
+        template: '<div class="countdown-wrapper">' +
+                        '<div class="countdown-hours">' +
+                            '<input id="countdown-hours" value="{{ knob.seconds.value }}"/>'+
+                        '</div>' +
+                        '<div class="countdown-minutes">' +
+                            '<input id="countdown-minutes" value="{{ knob.seconds.value }}"/>'+
+                        '</div>' +
+                        '<div class="countdown-seconds">' +
+                            '<input id="countdown-seconds" value="{{ knob.seconds.value }}"/>'+
+                        '</div>' +
+                    '</div>',
+        replace: false,
         controller: function($scope, $element, $attrs, $transclude) {
-        // link: function($scope, iElm, iAttrs, controller) {
+
+            $scope.knob = {
+                hours: {
+                    value: 60,
+                    options: {
+                        max: 60,
+                        width: 75,
+                        fgColor: "#000",
+                        skin: "tron",
+                        thickness: 0.1,
+                        readOnly: true,
+                        displayPrevious: true
+                    }
+                },
+                minutes: {
+                    value: 60,
+                    options: {
+                        max: 60,
+                        width: 75,
+                        fgColor: "#ff3300",
+                        skin: "tron",
+                        thickness: 0.1,
+                        readOnly: true,
+                        displayPrevious: true
+                    }
+                },
+                seconds: {
+                    value: 60,
+                    options: {
+                        max: 60,
+                        width: 75,
+                        fgColor: "#ffec03",
+                        skin: "tron",
+                        thickness: 0.1,
+                        readOnly: true,
+                        displayPrevious: true
+                    }
+                }
+            };
 
             var timerInterval;
 
@@ -50,25 +85,24 @@ angular.module('circle.countdown', [])
                     if (!isFired) {
                         isFired = true;
                         $scope.$eval($scope.finishCallback);
+                        $interval.cancel(this.timerInterval);
                     }
                     DaysLeft = 0;
                     HoursLeft = 0;
                     MinutesLeft = 0;
                     SecondsLeft = 0;
                 }
-                
-                // element.find('.ClassyCountdown-days input').val(365 - DaysLeft).trigger('change');
-                // element.find('.ClassyCountdown-hours input').val(24 - HoursLeft).trigger('change');
-                // element.find('.ClassyCountdown-minutes input').val(60 - MinutesLeft).trigger('change');
-                // element.find('.ClassyCountdown-seconds input').val(60 - SecondsLeft).trigger('change');
-                // element.find('.ClassyCountdown-days .ClassyCountdown-value > div').html(DaysLeft);
-                // element.find('.ClassyCountdown-hours .ClassyCountdown-value > div').html(HoursLeft);
-                // element.find('.ClassyCountdown-minutes .ClassyCountdown-value > div').html(MinutesLeft);
-                // element.find('.ClassyCountdown-seconds .ClassyCountdown-value > div').html(SecondsLeft);
 
-                $scope.data = 60 - SecondsLeft;
+                $('#countdown-hours').val(HoursLeft).change();
+                $('#countdown-minutes').val(MinutesLeft).change();
+                $('#countdown-seconds').val(SecondsLeft).change();
+                
             }
 
+            $('#countdown-hours').val(HoursLeft).knob($scope.knob.hours.options);
+            $('#countdown-minutes').val(MinutesLeft).knob($scope.knob.minutes.options);
+            $('#countdown-seconds').val(SecondsLeft).knob($scope.knob.seconds.options);
+            
             $scope.doTick();
 
             this.timerInterval = $interval( function() {
@@ -105,76 +139,6 @@ angular.module('circle.countdown', [])
             //     element.find('.ClassyCountdown-seconds input').trigger('change');
             // }
 
-
-            $scope.knobData = [
-                {
-                    value: 30,
-                    options: {
-                        width: 100,
-                        displayInput: false
-                    }
-                },
-                {
-                    value: 40,
-                    options: {
-                        readOnly: true,
-                        width: 145,
-                        height: 145
-                    }
-                },
-                {
-                    value: 20,
-                    options: {
-                        width: 150,
-                        cursor: true,
-                        thickness: .3,
-                        fgColor: '#222222'
-                    }
-                },
-                {
-                    value: 70,
-                    options: {
-                        fgColor: '#66CC66',
-                        angleOffset: -125,
-                        angleArc: 250
-                    }
-                },
-                {
-                    value: 90,
-                    options: {
-                        angleOffset: 90,
-                        linecap: 'round'
-                    }
-                },
-                {
-                    value: 10,
-                    options: {
-                        width: 75,
-                        fgColor: "#ffec03",
-                        skin: "tron",
-                        thickness: .2,
-                        displayPrevious: true
-                    }
-                },
-                {
-                    value: 80,
-                    options: {
-                        displayPrevious: true,
-                        min: -100   
-                    }
-                }
-            ];
-
-            $scope.data = 20;
-            $scope.options = {
-                max: 60,
-                width: 75,
-                fgColor: "#ffec03",
-                skin: "tron",
-                thickness: .1,
-                displayPrevious: true
-            }
-            // ----
         }
     };
 }]);
