@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.9"
+    "angular": "~1.x",
+    "jquery": "~2.0.3",
+    "jquery-knob": "~1.2.3"
   }
 }
