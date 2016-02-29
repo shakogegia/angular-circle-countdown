@@ -9,7 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
     <script src="app.js"></script>
@@ -23,6 +23,9 @@
     <section class="page-header">
         <h1 class="project-name">Angular circle countdown</h1>
         <h2 class="project-tagline">Circle countdown for angular</h2>
+        <div class="text-center" style="max-width:500px; margin: auto;">
+            <countdown autostart="true" time="4000" colors="flat-colors-wide" callback="finished()"></countdown>
+        </div>
         <a href="https://github.com/shakogegia/angular-circle-countdown" class="btn">View on GitHub</a>
         <a href="https://github.com/shakogegia/angular-circle-countdown/zipball/master" class="btn">Download .zip</a>
         <a href="https://github.com/shakogegia/angular-circle-countdown/tarball/master" class="btn">Download .tar.gz</a>
@@ -79,7 +82,7 @@
                     <countdown autostart="true" time="4000" colors="flat-colors-black" callback="finished()"></countdown>
                 </div>
 
-                <div style="">
+                <!-- <div style="">
                     <hr>
                     <h5 class="text-center"><code>black</code></h5>
                     <countdown autostart="true" time="4000" colors="black" callback="finished()"></countdown>
@@ -95,9 +98,9 @@
                     <hr>
                     <h5 class="text-center"><code>black-very-wide</code></h5>
                     <countdown autostart="true" time="4000" colors="black-very-wide" callback="finished()"></countdown>
-                </div>
+                </div> -->
 
-                <div style="">
+                <!-- <div style="">
                     <hr>
                     <h5 class="text-center"><code>black-black</code></h5>
                     <countdown autostart="true" time="4000" colors="black-black" callback="finished()"></countdown>
@@ -125,7 +128,7 @@
                     <hr>
                     <h5 class="text-center"><code>white-black</code></h5>
                     <countdown autostart="true" time="4000" colors="white-black" callback="finished()"></countdown>
-                </div>
+                </div> -->
             </div>
         </div>
         <h3>
