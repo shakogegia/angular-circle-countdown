@@ -4,23 +4,26 @@ angular.module('circle.countdown', [])
     return {
         // scope: {}, // {} = isolate, true = child, false/undefined = no change
         scope: {
-            end: '=end',
-            now: '=now',
+            time: '=time',
             finishCallback: '&callback',
         },
         restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
-        template:   '<div class="countdown-wrapper">' +
-                        '<div class="countdown-days">' +
+        template:   '<div class="ClassyCountdown-wrapper">' +
+                        '<div class="ClassyCountdown-days">' +
                             '<input value="{{ knob.seconds.value }}"/>' +
+                            '<span class="ClassyCountdown-value"><div></div><span></span></span>' +
                         '</div>' +
-                        '<div class="countdown-hours">' +
+                        '<div class="ClassyCountdown-hours">' +
                             '<input value="{{ knob.seconds.value }}"/>' +
+                            '<span class="ClassyCountdown-value"><div></div><span></span></span>' +
                         '</div>' +
-                        '<div class="countdown-minutes">' +
+                        '<div class="ClassyCountdown-minutes">' +
                             '<input value="{{ knob.seconds.value }}"/>' +
+                            '<span class="ClassyCountdown-value"><div></div><span></span></span>' +
                         '</div>' +
-                        '<div class="countdown-seconds">' +
+                        '<div class="ClassyCountdown-seconds">' +
                             '<input value="{{ knob.seconds.value }}"/>' +
+                            '<span class="ClassyCountdown-value"><div></div><span></span></span>' +
                         '</div>' +
                     '</div>',
         replace: false,
@@ -34,7 +37,8 @@ angular.module('circle.countdown', [])
                 days: {
                     value: 60,
                     options: {
-                        width: 75,
+                        max: 365,
+                        // width: 75,
                         readOnly: true,
                         displayPrevious: true
                     }
@@ -42,8 +46,8 @@ angular.module('circle.countdown', [])
                 hours: {
                     value: 60,
                     options: {
-                        max: 60,
-                        width: 75,
+                        max: 24,
+                        // width: 75,
                         readOnly: true,
                         displayPrevious: true
                     }
@@ -52,7 +56,7 @@ angular.module('circle.countdown', [])
                     value: 60,
                     options: {
                         max: 60,
-                        width: 75,
+                        // width: 75,
                         readOnly: true,
                         displayPrevious: true
                     }
@@ -61,7 +65,7 @@ angular.module('circle.countdown', [])
                     value: 60,
                     options: {
                         max: 60,
-                        width: 75,
+                        // width: 75,
                         readOnly: true,
                         displayPrevious: true
                     }
@@ -75,9 +79,66 @@ angular.module('circle.countdown', [])
             $scope.theme = $attrs.colors || 'white';
             var styles = getPreset($scope.theme);
 
-            $scope.settings = {};
+            var defaults = {
+                end: undefined,
+                now: $.now(),
+                labels: true,
+                labelsOptions: {
+                    lang: {
+                        days: 'Days',
+                        hours: 'Hours',
+                        minutes: 'Minutes',
+                        seconds: 'Seconds'
+                    },
+                    style: 'font-size: 0.5em;'
+                },
+                style: {
+                    element: '',
+                    labels: false,
+                    textResponsive: 0.5,
+                    days: {
+                        gauge: {
+                            thickness: 0.02,
+                            bgColor: 'rgba(0, 0, 0, 0)',
+                            fgColor: 'rgba(0, 0, 0, 1)',
+                            lineCap: 'butt'
+                        },
+                        textCSS: ''
+                    },
+                    hours: {
+                        gauge: {
+                            thickness: 0.02,
+                            bgColor: 'rgba(0, 0, 0, 0)',
+                            fgColor: 'rgba(0, 0, 0, 1)',
+                            lineCap: 'butt'
+                        },
+                        textCSS: ''
+                    },
+                    minutes: {
+                        gauge: {
+                            thickness: 0.02,
+                            bgColor: 'rgba(0, 0, 0, 0)',
+                            fgColor: 'rgba(0, 0, 0, 1)',
+                            lineCap: 'butt'
+                        },
+                        textCSS: ''
+                    },
+                    seconds: {
+                        gauge: {
+                            thickness: 0.02,
+                            bgColor: 'rgba(0, 0, 0, 0)',
+                            fgColor: 'rgba(0, 0, 0, 1)',
+                            lineCap: 'butt'
+                        },
+                        textCSS: ''
+                    }
+                },
+                onEndCallback: function() {}
+            };
+            
+            settings = defaults;
 
-            angular.extend($scope.settings, styles);
+            angular.extend(settings, styles);
             
             angular.extend($scope.knob.days.options, styles.style.days.gauge);
             angular.extend($scope.knob.hours.options, styles.style.hours.gauge);
@@ -90,7 +151,7 @@ angular.module('circle.countdown', [])
             var secondsLeft;
             var isFired = false;
 
-            secondsLeft = $scope.end - $scope.now;
+            secondsLeft = parseInt($scope.time);
 
             $scope.secondsToDHMS = function() {
                 DaysLeft = Math.floor(secondsLeft / 86400);
@@ -114,17 +175,17 @@ angular.module('circle.countdown', [])
                     SecondsLeft = 0;
                 }
 
-                el.find('.countdown-days input').val(DaysLeft).change();
-                el.find('.countdown-hours input').val(HoursLeft).change();
-                el.find('.countdown-minutes input').val(MinutesLeft).change();
-                el.find('.countdown-seconds input').val(SecondsLeft).change();
+                el.find('.ClassyCountdown-days input').val(DaysLeft).change();
+                el.find('.ClassyCountdown-hours input').val(HoursLeft).change();
+                el.find('.ClassyCountdown-minutes input').val(MinutesLeft).change();
+                el.find('.ClassyCountdown-seconds input').val(SecondsLeft).change();
+
+                el.find('.ClassyCountdown-days .ClassyCountdown-value > div').html(DaysLeft);
+                el.find('.ClassyCountdown-hours .ClassyCountdown-value > div').html(HoursLeft);
+                el.find('.ClassyCountdown-minutes .ClassyCountdown-value > div').html(MinutesLeft);
+                el.find('.ClassyCountdown-seconds .ClassyCountdown-value > div').html(SecondsLeft);
 
             }
-
-            el.find('.countdown-days input').val(DaysLeft).knob($scope.knob.days.options);
-            el.find('.countdown-hours input').val(HoursLeft).knob($scope.knob.hours.options);
-            el.find('.countdown-minutes input').val(MinutesLeft).knob($scope.knob.minutes.options);
-            el.find('.countdown-seconds input').val(SecondsLeft).knob($scope.knob.seconds.options);
 
 
             $scope.$on('timer-start', function() {
@@ -155,10 +216,37 @@ angular.module('circle.countdown', [])
             {
                 $scope.secondsToDHMS();
 
-                el.find('.countdown-days input').val(DaysLeft).change();
-                el.find('.countdown-hours input').val(HoursLeft).change();
-                el.find('.countdown-minutes input').val(MinutesLeft).change();
-                el.find('.countdown-seconds input').val(SecondsLeft).change();
+                el.find('.ClassyCountdown-wrapper > div').attr("style", settings.style.element);
+                el.find('.ClassyCountdown-days .ClassyCountdown-value').attr('style', settings.style.days.textCSS);
+                el.find('.ClassyCountdown-hours .ClassyCountdown-value').attr('style', settings.style.hours.textCSS);
+                el.find('.ClassyCountdown-minutes .ClassyCountdown-value').attr('style', settings.style.minutes.textCSS);
+                el.find('.ClassyCountdown-seconds .ClassyCountdown-value').attr('style', settings.style.seconds.textCSS);
+                el.find('.ClassyCountdown-value').each(function() {
+                    $(this).css('margin-top', Math.floor(0 - (parseInt($(this).height()) / 2)) + 'px');
+                });
+
+                if (settings.labels) {
+                    el.find(".ClassyCountdown-days .ClassyCountdown-value > span").html(settings.labelsOptions.lang.days);
+                    el.find(".ClassyCountdown-hours .ClassyCountdown-value > span").html(settings.labelsOptions.lang.hours);
+                    el.find(".ClassyCountdown-minutes .ClassyCountdown-value > span").html(settings.labelsOptions.lang.minutes);
+                    el.find(".ClassyCountdown-seconds .ClassyCountdown-value > span").html(settings.labelsOptions.lang.seconds);
+                    el.find(".ClassyCountdown-value > span").attr("style", settings.labelsOptions.style);
+                }
+
+                el.find('.ClassyCountdown-days .ClassyCountdown-value > div').html(DaysLeft);
+                el.find('.ClassyCountdown-hours .ClassyCountdown-value > div').html(HoursLeft);
+                el.find('.ClassyCountdown-minutes .ClassyCountdown-value > div').html(MinutesLeft);
+                el.find('.ClassyCountdown-seconds .ClassyCountdown-value > div').html(SecondsLeft);
+
+                el.find('.ClassyCountdown-days input').val(DaysLeft).change();
+                el.find('.ClassyCountdown-hours input').val(HoursLeft).change();
+                el.find('.ClassyCountdown-minutes input').val(MinutesLeft).change();
+                el.find('.ClassyCountdown-seconds input').val(SecondsLeft).change();
+
+                el.find('.ClassyCountdown-days input').val(DaysLeft).knob( angular.extend($scope.knob.days.options, {width: $('.ClassyCountdown-days').width()}) );
+                el.find('.ClassyCountdown-hours input').val(HoursLeft).knob( angular.extend($scope.knob.hours.options, {width: $('.ClassyCountdown-hours').width()}) );
+                el.find('.ClassyCountdown-minutes input').val(MinutesLeft).knob( angular.extend($scope.knob.minutes.options, {width: $('.ClassyCountdown-minutes').width()}) );
+                el.find('.ClassyCountdown-seconds input').val(SecondsLeft).knob( angular.extend($scope.knob.seconds.options, {width: $('.ClassyCountdown-seconds').width()}) );
             }
 
 
@@ -185,9 +273,14 @@ angular.module('circle.countdown', [])
                 
                 $scope.secondsToDHMS();
 
-                el.find('.countdown-hours input').val(HoursLeft).change();
-                el.find('.countdown-minutes input').val(MinutesLeft).change();
-                el.find('.countdown-seconds input').val(SecondsLeft).change();
+                el.find('.ClassyCountdown-days .ClassyCountdown-value > div').html(DaysLeft);
+                el.find('.ClassyCountdown-hours .ClassyCountdown-value > div').html(HoursLeft);
+                el.find('.ClassyCountdown-minutes .ClassyCountdown-value > div').html(MinutesLeft);
+                el.find('.ClassyCountdown-seconds .ClassyCountdown-value > div').html(SecondsLeft);
+
+                el.find('.ClassyCountdown-hours input').val(HoursLeft).change();
+                el.find('.ClassyCountdown-minutes input').val(MinutesLeft).change();
+                el.find('.ClassyCountdown-seconds input').val(SecondsLeft).change();
             }
 
             $scope.addSeconds = function(seconds)
@@ -212,23 +305,23 @@ angular.module('circle.countdown', [])
                 el.find('.ClassyCountdown-wrapper > div').each(function() {
                     $(this).css('height', $(this).width() + 'px');
                 });
-                if ($scope.settings.style.textResponsive) {
-                    el.find('.ClassyCountdown-value').css('font-size', Math.floor(el.find('> div').eq(0).width() * $scope.settings.style.textResponsive / 10) + 'px');
+                if (settings.style.textResponsive) {
+                    el.find('.ClassyCountdown-value').css('font-size', Math.floor(el.find('> div').eq(0).width() * settings.style.textResponsive / 10) + 'px');
                     el.find('.ClassyCountdown-value').each(function() {
                         $(this).css('margin-top', Math.floor(0 - (parseInt($(this).height()) / 2)) + 'px');
                     });
                 }
                 $(window).trigger('resize');
                 // $(window).resize($.throttle(50, onResize));
-                $(window).resize(onResize);
+                $(window).on('resize', onResize);
             }
 
             function onResize() {
                 el.find('.ClassyCountdown-wrapper > div').each(function() {
                     $(this).css('height', $(this).width() + 'px');
                 });
-                if ($scope.settings.style.textResponsive) {
-                    el.find('.ClassyCountdown-value').css('font-size', Math.floor(el.find('> div').eq(0).width() * $scope.settings.style.textResponsive / 10) + 'px');
+                if (settings.style.textResponsive) {
+                    el.find('.ClassyCountdown-value').css('font-size', Math.floor(el.find('> div').eq(0).width() * settings.style.textResponsive / 10) + 'px');
                 }
                 el.find('.ClassyCountdown-value').each(function() {
                     $(this).css("margin-top", Math.floor(0 - (parseInt($(this).height()) / 2)) + 'px');
@@ -237,6 +330,20 @@ angular.module('circle.countdown', [])
                 el.find('.ClassyCountdown-hours input').trigger('change');
                 el.find('.ClassyCountdown-minutes input').trigger('change');
                 el.find('.ClassyCountdown-seconds input').trigger('change');
+
+                el.find('.ClassyCountdown-days input').knob( {width: $('.ClassyCountdown-days').width()} );
+                el.find('.ClassyCountdown-hours input').knob( {width: $('.ClassyCountdown-hours').width()} );
+                el.find('.ClassyCountdown-minutes input').knob( {width: $('.ClassyCountdown-minutes').width()} );
+                el.find('.ClassyCountdown-seconds input').knob( {width: $('.ClassyCountdown-seconds').width()} );
+
+                $('.ClassyCountdown-days input').trigger('configure', {width:$('.ClassyCountdown-days').width()});
+                $('.ClassyCountdown-hours input').trigger('configure', {width:$('.ClassyCountdown-hours').width()});
+                $('.ClassyCountdown-minutes input').trigger('configure', {width:$('.ClassyCountdown-minutes').width()});
+                $('.ClassyCountdown-seconds input').trigger('configure', {width:$('.ClassyCountdown-seconds').width()});
+
+                // el.find('.ClassyCountdown-hours input').val(HoursLeft).knob( angular.extend($scope.knob.hours.options, {width: $('.ClassyCountdown-hours').width()}) );
+                // el.find('.ClassyCountdown-minutes input').val(MinutesLeft).knob( angular.extend($scope.knob.minutes.options, {width: $('.ClassyCountdown-minutes').width()}) );
+                // el.find('.ClassyCountdown-seconds input').val(SecondsLeft).knob( angular.extend($scope.knob.seconds.options, {width: $('.ClassyCountdown-seconds').width()}) );
             }
 
             function getPreset(theme) {
