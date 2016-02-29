@@ -1,3 +1,7 @@
+.countdown-wrapper {
+    text-align: center;
+}
+
 .countdown-wrapper > div {
 	display: inline-block;
     margin: 1px;
@@ -5,5 +9,5 @@
 
 .countdown-wrapper input {
 	color: white!important;
-	font-weight: 100!important;
+	/*font-weight: 100!important;*/
 }
