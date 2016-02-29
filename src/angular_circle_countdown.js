@@ -312,8 +312,8 @@ angular.module('circle.countdown', [])
                     });
                 }
                 $(window).trigger('resize');
-                // $(window).resize($.throttle(50, onResize));
-                $(window).on('resize', onResize);
+                $(window).resize($.throttle(50, onResize));
+                // $(window).on('resize', onResize);
             }
 
             function onResize() {
