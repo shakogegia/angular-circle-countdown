@@ -1,9 +1,22 @@
-.countdown-wrapper > div {
-	display: inline-block;
-    margin: 1px;
+.ClassyCountdown-wrapper > div {
+    display: inline-block;
+    position: relative;
+    width: calc(25% - 20px);
+    margin: 10px;
 }
 
-.countdown-wrapper input {
-	color: white!important;
-	font-weight: 100!important;
-}git tag -l "v0.1"
+.ClassyCountdown-wrapper .ClassyCountdown-value {
+    width: 100%;
+    line-height: 1em;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    left: 0;
+    display: block;
+}
+
+.ClassyCountdown-wrapper input {
+	display: none;
+    width: 0px;
+    visibility: hidden;
+}
