@@ -4,10 +4,8 @@ var app = angular.module('App', ['circle.countdown']);
 
 app.controller('AppController', ['$scope', function($scope){
     
-    $scope.countdownColors = {
-        hours: "red",
-        minutes: "red",
-        seconds: "red",
+ 	$scope.addSeconds = function (){
+        $scope.$broadcast('timer-add-seconds', { seconds: 50 });
     };
 
     $scope.finished = function() {
