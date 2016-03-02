@@ -336,10 +336,10 @@ angular.module('circle.countdown', [])
                 el.find('.ClassyCountdown-minutes input').knob( {width: $('.ClassyCountdown-minutes').width()} );
                 el.find('.ClassyCountdown-seconds input').knob( {width: $('.ClassyCountdown-seconds').width()} );
 
-                $('.ClassyCountdown-days input').trigger('configure', {width:$('.ClassyCountdown-days').width()});
-                $('.ClassyCountdown-hours input').trigger('configure', {width:$('.ClassyCountdown-hours').width()});
-                $('.ClassyCountdown-minutes input').trigger('configure', {width:$('.ClassyCountdown-minutes').width()});
-                $('.ClassyCountdown-seconds input').trigger('configure', {width:$('.ClassyCountdown-seconds').width()});
+                el.find('.ClassyCountdown-days input').trigger('configure', {width:el.find('.ClassyCountdown-days').width()});
+                el.find('.ClassyCountdown-hours input').trigger('configure', {width:el.find('.ClassyCountdown-hours').width()});
+                el.find('.ClassyCountdown-minutes input').trigger('configure', {width:el.find('.ClassyCountdown-minutes').width()});
+                el.find('.ClassyCountdown-seconds input').trigger('configure', {width:el.find('.ClassyCountdown-seconds').width()});
 
                 // el.find('.ClassyCountdown-hours input').val(HoursLeft).knob( angular.extend($scope.knob.hours.options, {width: $('.ClassyCountdown-hours').width()}) );
                 // el.find('.ClassyCountdown-minutes input').val(MinutesLeft).knob( angular.extend($scope.knob.minutes.options, {width: $('.ClassyCountdown-minutes').width()}) );
