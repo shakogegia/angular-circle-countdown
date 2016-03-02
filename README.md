@@ -1,6 +1,8 @@
 # Angular circle countdown
 Circle countdown for angular
 
+![Screenshot](screenshot.png)
+
 ## See demo
 [Demo](http://shakogegia.github.io/angular-circle-countdown/)
 
