@@ -3,8 +3,8 @@ Circle countdown for angular
 
 ![Screenshot](screenshot.png)
 
-## See demo
-[Demo](http://shakogegia.github.io/angular-circle-countdown/)
+## See All demos
+[Demo & Examples](http://shakogegia.github.io/angular-circle-countdown/)
 
 ## Install 
 with bower
@@ -38,5 +38,5 @@ app.controller('AppController', ['$scope', function($scope){
 Insert in your html
 
 ```html
-<countdown now="0" end="100" finish-callback="finished()"></countdown>
+<countdown time="100" finish-callback="finished()"></countdown>
 ```
