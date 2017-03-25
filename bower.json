@@ -19,6 +19,6 @@
         "angular": "~1.x",
         "jquery": "~2.0.3",
         "jquery-knob": "~1.2.13",
-        "jquery-throttle-debounce": "~0.2.0"
+        "jquery-throttle-debounce": "*"
     }
 }
