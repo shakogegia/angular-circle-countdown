@@ -51,7 +51,7 @@ Insert in your html
 Or to use a specific date:
 
 ```html
-<countdown date="2017-10-01 10:00 +0000" colors="flat-colors" finish-callback="finished()"></countdown>
+<countdown date="'2017-10-01 10:00 +0000'" colors="flat-colors" finish-callback="finished()"></countdown>
 ```
 
 ### Configuration
