@@ -4,6 +4,7 @@ angular.module("circle.countdown", [])
       // scope: {}, // {} = isolate, true = child, false/undefined = no change
       scope: {
         time: "=time",
+        date: "=date",
         finishCallback: "&callback"
       },
       restrict: "EA",
@@ -133,7 +134,14 @@ angular.module("circle.countdown", [])
         var secondsLeft;
         var isFired = false;
 
-        secondsLeft = parseInt($scope.time);
+        // Added support for parsing a date in ISO format via MomentJS to calculate secondsLeft
+        if (typeof $scope.date == 'string' && $scope.date.length > 0) {
+          var now = moment();
+          var endDate = moment($scope.date, "YYYY-MM-DD HH:mm Z");
+          secondsLeft = endDate.diff(now, 'seconds');
+        } else {
+          secondsLeft = parseInt($scope.time);
+        }
 
         $scope.secondsToDHMS = function() {
           DaysLeft = Math.floor(secondsLeft / 86400);
